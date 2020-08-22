@@ -8,10 +8,10 @@ message Todo {
     string description = 3;
 
     enum Status {
-        UNKNOWN = 0;
-        CREATED = 1;
-        IN_PROGRESS = 2;
-        DONE = 3;
+        TODO_STATUS_UNKNOWN = 0;
+        TODO_STATUS_CREATED = 1;
+        TODO_STATUS_IN_PROGRESS = 2;
+        TODO_STATUS_DONE = 3;
     }
     Status status = 4;
 }
