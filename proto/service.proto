@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package service;
+
+message Todo {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+
+    enum Status {
+        UNKNOWN = 0;
+        CREATED = 1;
+        IN_PROGRESS = 2;
+        DONE = 3;
+    }
+    Status status = 4;
+}
+
+service TodoAPI {
+    rpc Create(CreateRequest) returns (CreateResponse) {}
+    rpc Update(UpdateRequest) returns (UpdateResponse) {}
+    rpc Get(GetRequest) returns (GetResponse) {}
+    rpc List(ListRequest) returns (ListResponse) {}
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
+message CreateRequest {
+    string title = 1;
+    string description = 2;
+}
+
+message CreateResponse {
+    string id = 1;
+}
+
+message UpdateRequest {
+    Todo todo = 1;
+}
+
+message UpdateResponse {}
+
+message GetRequest {
+    string id = 1;
+}
+
+message GetResponse {
+    Todo todo = 2;
+}
+
+message ListRequest {}
+
+message ListResponse {
+    repeated Todo todos = 1;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message DeleteResponse {}
