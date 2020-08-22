@@ -4,18 +4,18 @@ type Todo struct {
 	ID          string
 	Title       string
 	Description string
-	Status      TodoStatus
+	Status      Status
 }
 
-type TodoStatus int
+type Status int
 
 const (
-	TodoStatusCreated TodoStatus = iota
-	TodoStatusInProgress
-	TodoStatusDone
+	StatusCreated Status = iota
+	StatusInProgress
+	StatusDone
 )
 
-type TodoService interface {
+type Service interface {
 	Create(string, string) (string, error)
 	Update(Todo) error
 	Get(string) (Todo, error)

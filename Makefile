@@ -1,4 +1,4 @@
-SERVICE := go-todo-service
+SERVICE := todo-service
 
 GIT_HASH := $(shell git rev-parse HEAD)
 LINKFLAGS := -X main.gitHash=$(GIT_HASH)
@@ -21,10 +21,10 @@ install:
 	go get -v ./...
 
 LINTER_EXE := golangci-lint
-LINTER := $(GOPATH)/bin/$(LINTER_EXE)
+LINTER := $(GOBIN)/$(LINTER_EXE)
 
 $(LINTER):
-	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint
 
 LINT_FLAGS :=--enable golint,unconvert,unparam,gofmt
 
@@ -39,7 +39,7 @@ test:
 	go test $(TEST_FLAGS) ./...
 
 $(SERVICE):
-	go build -ldflags '$(LINKFLAGS)' ./cmd/todo
+	go build -ldflags '$(LINKFLAGS)' ./cmd/$(SERVICE)
 
 .PHONY: build
 build: $(SERVICE)
@@ -52,6 +52,7 @@ clean:
 all: install lint test clean build
 
 
+DOCKER_ID=kentakudo
 DOCKER_REGISTRY=docker.io
 DOCKER_REPOSITORY_NAMESPACE=kentakudo
 DOCKER_REPOSITORY_IMAGE=$(SERVICE)

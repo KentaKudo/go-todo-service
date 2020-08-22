@@ -8,10 +8,10 @@ import (
 )
 
 type Server struct {
-	todoService todo.TodoService
+	todoService todo.Service
 }
 
-func NewServer(todoService todo.TodoService) *Server {
+func NewServer(todoService todo.Service) *Server {
 	return &Server{todoService}
 }
 
@@ -26,17 +26,17 @@ func (s *Server) Create(ctx context.Context, req *service.CreateRequest) (*servi
 	}, nil
 }
 
-var serviceStatusMapping = map[service.Todo_Status]todo.TodoStatus{
-	service.TODO_STATUS_UNKNOWN:     todo.TodoStatusCreated,
-	service.TODO_STATUS_CREATED:     todo.TodoStatusCreated,
-	service.TODO_STATUS_IN_PROGRESS: todo.TodoStatusInProgress,
-	service.TODO_STATUS_DONE:        todo.TodoStatusDone,
+var serviceStatusMapping = map[service.Todo_Status]todo.Status{
+	service.TODO_STATUS_UNKNOWN:     todo.StatusCreated,
+	service.TODO_STATUS_CREATED:     todo.StatusCreated,
+	service.TODO_STATUS_IN_PROGRESS: todo.StatusInProgress,
+	service.TODO_STATUS_DONE:        todo.StatusDone,
 }
 
-var todoStatusMapping = map[todo.TodoStatus]service.Todo_Status{
-	todo.TodoStatusCreated:    service.TODO_STATUS_CREATED,
-	todo.TodoStatusInProgress: service.TODO_STATUS_IN_PROGRESS,
-	todo.TodoStatusDone:       service.TODO_STATUS_DONE,
+var todoStatusMapping = map[todo.Status]service.Todo_Status{
+	todo.StatusCreated:    service.TODO_STATUS_CREATED,
+	todo.StatusInProgress: service.TODO_STATUS_IN_PROGRESS,
+	todo.StatusDone:       service.TODO_STATUS_DONE,
 }
 
 func (s *Server) Update(ctx context.Context, req *service.UpdateRequest) (*service.UpdateResponse, error) {

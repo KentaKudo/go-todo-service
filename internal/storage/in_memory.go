@@ -21,7 +21,7 @@ func (m InMemory) Create(title, description string) (string, error) {
 		ID:          id,
 		Title:       title,
 		Description: description,
-		Status:      todo.TodoStatusCreated,
+		Status:      todo.StatusCreated,
 	}
 
 	m[id] = newTodo
@@ -43,7 +43,7 @@ func (m InMemory) Update(new todo.Todo) error {
 		old.Description = new.Description
 	}
 
-	if new.Status != todo.TodoStatusCreated && old.Status != new.Status {
+	if new.Status != todo.StatusCreated && old.Status != new.Status {
 		old.Status = new.Status
 	}
 
